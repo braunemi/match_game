@@ -10,7 +10,11 @@ var MatchGame = {};
  */
 
 MatchGame.generateCardValues = function () {
-
+  var cardNums = new Array(16);
+  for (let i = 0; i < cardNums.length; i++) {
+    let randNum = Math.floor((Math.random() * 17) + 0);
+    cardNums.push(randNum);
+  }
 };
 
 /*
