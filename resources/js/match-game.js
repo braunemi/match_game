@@ -10,10 +10,16 @@ var MatchGame = {};
  */
 
 MatchGame.generateCardValues = function () {
-  var cardNums = new Array(16);
-  for (let i = 0; i < cardNums.length; i++) {
-    let randNum = Math.floor((Math.random() * 17) + 0);
-    cardNums.push(randNum);
+  var cards = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
+  var i = 0
+    , j = 0
+    , temp = null
+
+  for (i = array.length - 1; i > 0; i -= 1) {
+    j = Math.floor(Math.random() * (i + 1))
+    temp = cards[i]
+    cards[i] = cards[j]
+    cards[j] = temp
   }
 };
 
