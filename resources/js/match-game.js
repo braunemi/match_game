@@ -1,7 +1,7 @@
 var MatchGame = {};
 
 $(document).ready(function() {
-  var $game = $('#game');
+  var $game = $('#game .row');
   var values = MatchGame.generateCardValues();
   MatchGame.renderCards(values, $game);
 });
@@ -36,19 +36,23 @@ MatchGame.generateCardValues = function () {
 */
 
 MatchGame.renderCards = function(cardValues, $game) {
-  var hslValues = ["hsl(25,85%,65%)", "hsl(55,85%,65%)", "hsl(90,85%,65%)", "hsl(160,85%,65%)",
-                    "hsl(220,85%,65%)", "hsl(265,85%,65%)", "hsl(310,85%,65%)", "hsl(360,85%,65%)"];
+  var hslValues = ['hsl(25,85%,65%)', 'hsl(55,85%,65%)', 'hsl(90,85%,65%)', 'hsl(160,85%,65%)',
+                    'hsl(220,85%,65%)', 'hsl(265,85%,65%)', 'hsl(310,85%,65%)', 'hsl(360,85%,65%)'];
+  $game.empty();
   var $card;
   var flipped = false;
-  $game.empty();
   for(let i = 0; i < cardValues.length; i++) {
-    $card = "<div class='col-xs-3 card'></div>";
-    $card.data("row", vardValue[i]);
-    $card.data(flipped);
-    $card.data(cardValues[i], hslValues[cardValues[i]]);
+    let value = cardValues[i];
+    let color = hslValues[value];
+    let data = {
+      value: value,
+      color: color,
+      isFlipped: false
+    };
+    $card = $('<div class="col-3 card"></div>');
+    $card.data(data);
     $game.append($card);
   }
-
 };
 
 /*
