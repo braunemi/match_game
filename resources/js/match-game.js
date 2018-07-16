@@ -35,11 +35,13 @@ MatchGame.renderCards = function(cardValues, $game) {
   var hslValues = ['hsl(25,85%,65%)', 'hsl(55,85%,65%)', 'hsl(90,85%,65%)', 'hsl(160,85%,65%)',
                     'hsl(220,85%,65%)', 'hsl(265,85%,65%)', 'hsl(310,85%,65%)', 'hsl(360,85%,65%)'];
   $game.empty();
+  $game.data('flippedCards', []);
+
   var $card;
   var flipped = false;
   for(let i = 0; i < cardValues.length; i++) {
     let value = cardValues[i];
-    let color = hslValues[value];
+    let color = hslValues[value - 1];
     let data = {
       value: value,
       color: color,
@@ -49,6 +51,9 @@ MatchGame.renderCards = function(cardValues, $game) {
     $card.data(data);
     $game.append($card);
   }
+  $('.card').click(function () {
+    MatchGame.flipCard($(this), $('#game'));
+  });
 };
 
 /*
@@ -57,5 +62,16 @@ MatchGame.renderCards = function(cardValues, $game) {
  */
 
 MatchGame.flipCard = function($card, $game) {
+    if($card.data('isFlipped')) {
+      return;
+    }
+    else {
+      $card.css('background-color', $card.data('color'));
+      $card.append('<p> ' + $card.data('value') + ' </p>');
+      $card.data('isFlipped', true);
 
+      var flippedCards = $game.data('flippedCards')
+      flippedCards.push($card);
+
+    }
 };
