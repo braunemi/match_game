@@ -32,12 +32,30 @@ p {
   font-size: 7rem;
   color: rgb(255,255,255);
   cursor: pointer;
+  position: relative;
 }
 @media (max-width: 767px) {
   .card {
     height: 6.25rem;
   }
+  .card p {
+    font-size: 3.5rem;
+  }
   #game {
     padding: 2.5rem 4rem;
+  }
+}
+  @media (max-width: 374px) {
+    .card {
+      padding: 0 .5rem;
+    }
+    .card p {
+      top: .25rem;
+      font-size: 3rem;
+      margin-bottom: 0;
+    }
+    #game {
+      padding: 2rem 3rem;
+    }
   }
 }
