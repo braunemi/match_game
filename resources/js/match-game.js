@@ -18,10 +18,10 @@ $(document).ready(function() {
 MatchGame.generateCardValues = function () {
   var cards = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
   for (let i = 0; i < cards.length; i++) {
-    let j = Math.floor(Math.random() * (cards.length - i))
-    let temp = cards[i]
-    cards[i] = cards[j]
-    cards[j] = temp
+    let j = Math.floor(Math.random() * (cards.length - i));
+    let temp = cards[i];
+    cards[i] = cards[j];
+    cards[j] = temp;
   }
   return cards;
 };
@@ -52,7 +52,7 @@ MatchGame.renderCards = function(cardValues, $game) {
     $game.append($card);
   }
   $('.card').click(function () {
-    MatchGame.flipCard($(this), $('#game'));
+    MatchGame.flipCard($(this), $('#game .row'));
   });
 };
 
@@ -62,6 +62,9 @@ MatchGame.renderCards = function(cardValues, $game) {
  */
 
 MatchGame.flipCard = function($card, $game) {
+
+    var flippedCards = $game.data('flippedCards');
+
     if($card.data('isFlipped')) {
       return;
     }
@@ -70,8 +73,19 @@ MatchGame.flipCard = function($card, $game) {
       $card.append('<p> ' + $card.data('value') + ' </p>');
       $card.data('isFlipped', true);
 
-      var flippedCards = $game.data('flippedCards')
       flippedCards.push($card);
-
     }
+
+    /** Check if current flipped card matches a previous flipped card **/
+    if (flippedCards.length === 2) {
+        if (flippedCards[0].data('value') === flippedCards[1].data('value')) {
+          flippedCards[0].css('background-color', 'rgb(153,153,153)');
+          flippedCards[1].css('background-color', 'rgb(153,153,153)');
+        }
+        else {
+          flippedCards[0].css('background-color', 'rgb(32,64,86)');
+          flippedCards[1].css('background-color', 'rgb(32,64,86)');
+        }
+    }
+    $game.data('flippedCards', []);
 };
